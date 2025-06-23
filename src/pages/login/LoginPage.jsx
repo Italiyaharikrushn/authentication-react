@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const LoginPage = () => {
-  const [input, setInput] = useState({ email: '', password: '' });
+  const [input, setInput] = useState({ email: "", password: "" });
 
   const handleSubmitEvent = (e) => {
     e.preventDefault();
@@ -12,8 +12,7 @@ const LoginPage = () => {
         email: "",
         password: ""
       });
-    }
-    else {
+    } else {
       console.log("Login Error");
     }
   };
@@ -29,11 +28,11 @@ const LoginPage = () => {
   return (
     <form onSubmit={handleSubmitEvent}>
       <div className="form_control">
-        <input type="email" name="email" placeholder="Enter Email" onChange={handleInput} />
+        <input type="email" name="email" placeholder="Enter Email" onChange={handleInput} value={input.email} />
       </div>
 
       <div className="form_control">
-        <input type="password" name="password" placeholder='Enter Password' onChange={handleInput} />
+        <input type="password" name="password" placeholder="Enter Password" onChange={handleInput} value={input.password} />
       </div>
 
       <button className="btn-submit">Login</button>

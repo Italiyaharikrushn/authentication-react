@@ -99,7 +99,7 @@ const RegisterPage = () => {
     //         <input name="email" type="email" placeholder="Email" value={form.email} onChange={handleChange} />
     //         <input name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} />
     //         <input name="phone" placeholder="Phone" value={form.phone} onChange={handleChange} />
-    //         <input name="website" placeholder="website" value={form.website} onChange={handleChange} />
+    //         <input name="url" placeholder="website" value={form.website} onChange={handleChange} />
     //         <input name="GST" placeholder="GST" value={form.GST} onChange={handleChange} />
 
     //         <button type="submit" disabled={isLoading}>Register</button>
