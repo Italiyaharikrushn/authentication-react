@@ -1,0 +1,13 @@
+.auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    padding: 30px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form_control {
+    padding: 10px;
+}

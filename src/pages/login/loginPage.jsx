@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useLoginMutation } from '../../redux/api/loginApi';
+import { Link } from 'react-router-dom';
+import './loginPage.css';
 
 const LoginPage = () => {
   const [input, setInput] = useState({ email: "", password: "" });
@@ -25,68 +27,51 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
+    <div className='auth'>
       <form onSubmit={handleSubmitEvent}>
-        <div className="form_control">
-          <input type="email" name="email" placeholder="Enter Email" onChange={handleInput} value={input.email} />
+        <div className='form_control'>
+          <h1>Login Page</h1>
         </div>
 
         <div className="form_control">
-          <input type="password" name="password" placeholder="Enter Password" onChange={handleInput} value={input.password} />
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter Email"
+            value={input.email}
+            onChange={handleInput}
+            required
+            autoComplete="email"
+          />
+        </div>
+
+        <div className="form_control">
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+            value={input.password}
+            onChange={handleInput}
+            required
+            autoComplete="current-password"
+          />
         </div>
 
         <button className="btn-submit" disabled={isLoading}>
           {isLoading ? "Logging in..." : "Login"}
         </button>
-        {isError && (<p style={{ color: "red" }}>Login failed: {error?.data?.message || "Unknown error"}</p>)}
-        {data && (<p style={{ color: "green" }}> Welcome, {data.name || "User"}! </p>)}
+
+        <p>Don't have an account? <Link to="/register">Sign up</Link></p>
+
+        {isError && (
+          <p style={{ color: "red" }}>Login failed: {error?.data?.message || "Unknown error"}</p>
+        )}
+        {data && (
+          <p style={{ color: "green" }}>Welcome, {data.name || "User"}!</p>
+        )}
       </form>
     </div>
   );
 };
 
 export default LoginPage;
-
-// import React, { useState } from 'react';
-
-// const LoginPage = () => {
-//   const [input, setInput] = useState({ email: "", password: "" });
-
-//   const handleSubmitEvent = (e) => {
-//     e.preventDefault();
-//     const { email, password } = input;
-//     if ( email && password ) {
-//       console.log("Login Success", input);
-//       setInput({
-//         email: "",
-//         password: ""
-//       });
-//     } else {
-//       console.log("Login Error");
-//     }
-//   };
-
-//   const handleInput = (e) => {
-//     const { name, value } = e.target;
-//     setInput((prev) => ({
-//       ...prev,
-//       [name]: value,
-//     }));
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmitEvent}>
-//       <div className="form_control">
-//         <input type="email" name="email" placeholder="Enter Email" onChange={handleInput} value={input.email} />
-//       </div>
-
-//       <div className="form_control">
-//         <input type="password" name="password" placeholder="Enter Password" onChange={handleInput} value={input.password} />
-//       </div>
-
-//       <button className="btn-submit">Login</button>
-//     </form>
-//   );
-// };
-
-// export default LoginPage;

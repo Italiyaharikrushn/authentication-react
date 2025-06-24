@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useRegisterMutation } from "../../redux/api/loginApi";
+import './registerPage.css';
+import { Link, useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
   const [input, setInput] = useState({ name: "", address: "", email: "", phone: "", password: "", website: "", GST: "", });
   const [register, { isLoading, isError, error, data }] = useRegisterMutation();
+  const navigate = useNavigate();
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -20,14 +23,18 @@ const RegisterPage = () => {
       const res = await register(input).unwrap();
       console.log("Register Success:", res);
       setInput({ name: "", address: "", email: "", phone: "", password: "", website: "", GST: "", });
+      navigate("/");
     } catch (err) {
       console.error("Registration failed:", err);
     }
   };
 
   return (
-    <div>
+    <div className="auth">
       <form onSubmit={handleSubmitEvent}>
+        <div className="form_control">
+          <h1>Regiaster page</h1>
+        </div>
         <div className="form_control">
           <input type="text" name="name" placeholder="Name" value={input.name} onChange={handleInput} required />
         </div>
@@ -58,6 +65,8 @@ const RegisterPage = () => {
           {isLoading ? "Registering..." : "Register"}
         </button>
 
+        <p>Already have an account? <Link to="/">Sign in</Link></p>
+
         {isError && (
           <p style={{ color: "red" }}>
             Registration failed: {error?.data?.message}
@@ -65,7 +74,7 @@ const RegisterPage = () => {
         )}
         {data && (
           <p style={{ color: "green" }}>
-            Welcome, {data.name || "User"}! Registration successful.
+            Registration successful.
           </p>
         )}
       </form>
@@ -74,73 +83,3 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
-
-// import { useState } from "react";
-
-// const RegisterPage = () => {
-//     const [input, setInput] = useState({ name: "", address: "", email: "", phone: "", password: "", website: "", GST: "", });
-
-//     const handleSubmitEvent = (e) => {
-//         e.preventDefault();
-//         const { name, address, email, phone, password, website, GST } = input;
-
-//         if ( name && address && email && phone && password && website && GST ) {
-//             console.log("Register Success", input);
-//             setInput({
-//                 name: "",
-//                 address: "",
-//                 email: "",
-//                 phone: "",
-//                 password: "",
-//                 website: "",
-//                 GST: "",
-//             });
-//         } else {
-//             console.log("Register Error");
-//         }
-//     };
-
-//     const handleInput = (e) => {
-//         const { name, value } = e.target;
-//         setInput((prev) => ({
-//             ...prev,
-//             [name]: value,
-//         }));
-//     };
-
-//     return (
-//         <form onSubmit={handleSubmitEvent}>
-//             <div className="form_control">
-//                 <input type="text" name="name" placeholder="Enter Name" onChange={handleInput} value={input.name} />
-//             </div>
-
-//             <div className="form_control">
-//                 <input type="email" name="email" placeholder="Enter Email" onChange={handleInput} value={input.email} />
-//             </div>
-
-//             <div className="form_control">
-//                 <input type="text" name="address" placeholder="Enter Address" onChange={handleInput} value={input.address} />
-//             </div>
-
-//             <div className="form_control">
-//                 <input type="tel" name="phone" placeholder="Enter Phone" onChange={handleInput} value={input.phone} />
-//             </div>
-
-//             <div className="form_control">
-//                 <input type="password" name="password" placeholder="Enter Password" onChange={handleInput} value={input.password} />
-//             </div>
-
-//             <div className="form_control">
-//                 <input type="text" name="GST" placeholder="Enter GST" onChange={handleInput} value={input.GST} />
-//             </div>
-
-//             <div className="form_control">
-//                 <input type="url" name="website" placeholder="Enter Website" onChange={handleInput} value={input.website} />
-//             </div>
-
-//             <button className="btn-submit">Register</button>
-//         </form>
-//     );
-// };
-
-// export default RegisterPage;
