@@ -9,7 +9,7 @@ const LoginPage = () => {
     // const handleSubmitEvent = async (e) => {
     e.preventDefault();
     const { email, password } = input;
-    if ( email && password ) {
+    if (email && password) {
       try {
         // const res = await login({ email, password }).unwrap();
         const res = login({ email, password }).unwrap();
@@ -32,21 +32,23 @@ const LoginPage = () => {
   };
 
   return (
-    <form onSubmit={handleSubmitEvent}>
-      <div className="form_control">
-        <input type="email" name="email" placeholder="Enter Email" onChange={handleInput} value={input.email} />
-      </div>
+    <div>
+      <form onSubmit={handleSubmitEvent}>
+        <div className="form_control">
+          <input type="email" name="email" placeholder="Enter Email" onChange={handleInput} value={input.email} />
+        </div>
 
-      <div className="form_control">
-        <input type="password" name="password" placeholder="Enter Password" onChange={handleInput} value={input.password} />
-      </div>
+        <div className="form_control">
+          <input type="password" name="password" placeholder="Enter Password" onChange={handleInput} value={input.password} />
+        </div>
 
-      <button className="btn-submit" disabled={isLoading}>
-        {isLoading ? "Logging in..." : "Login"}
-      </button>
-      {isError && <p style={{ color: "red" }}>Login failed: {error?.data?.message || "Unknown error"}</p>}
-      {data && (<p style={{ color: "green" }}> Welcome, {data.name || "User"}! </p>)}
-    </form>
+        <button className="btn-submit" disabled={isLoading}>
+          {isLoading ? "Logging in..." : "Login"}
+        </button>
+        {isError && <p style={{ color: "red" }}>Login failed: {error?.data?.message || "Unknown error"}</p>}
+        {data && (<p style={{ color: "green" }}> Welcome, {data.name || "User"}! </p>)}
+      </form>
+    </div>
   );
 };
 

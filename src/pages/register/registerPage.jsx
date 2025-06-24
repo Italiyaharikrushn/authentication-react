@@ -42,30 +42,50 @@ const RegisterPage = () => {
   };
 
   return (
-    <form onSubmit={handleSubmitEvent}>
-      <input type="text" name="name" placeholder="Name" value={input.name} onChange={handleInput} required />
-      <input type="text" name="address" placeholder="Address" value={input.address} onChange={handleInput} required />
-      <input type="email" name="email" placeholder="Email" value={input.email} onChange={handleInput} required />
-      <input type="text" name="phone" placeholder="Phone" value={input.phone} onChange={handleInput} required />
-      <input type="password" name="password" placeholder="Password" value={input.password} onChange={handleInput} required />
-      <input type="text" name="website" placeholder="Website" value={input.website} onChange={handleInput} />
-      <input type="text" name="GST" placeholder="GST" value={input.GST} onChange={handleInput} />
+    <div className="">
+      <form onSubmit={handleSubmitEvent}>
+        <div className="form_control">
+          <input type="text" name="name" placeholder="Name" value={input.name} onChange={handleInput} required />
+        </div>
 
-      <button type="submit" disabled={isLoading}>
-        {isLoading ? "Registering..." : "Register"}
-      </button>
+        <div className="form_control">
+          <input type="text" name="address" placeholder="Address" value={input.address} onChange={handleInput} required />
+        </div>
 
-      {isError && (
-        <p style={{ color: "red" }}>
-          Registration failed: {error?.data?.message}
-        </p>
-      )}
-      {data && (
-        <p style={{ color: "green" }}>
-          Welcome, {data.name || "User"}! Registration successful.
-        </p>
-      )}
-    </form>
+        <div className="form_control">
+          <input type="email" name="email" placeholder="Email" value={input.email} onChange={handleInput} required />
+        </div>
+
+        <div className="form_control">
+          <input type="text" name="phone" placeholder="Phone" value={input.phone} onChange={handleInput} required />
+        </div>
+
+        <div className="form_control">
+          <input type="password" name="password" placeholder="Password" value={input.password} onChange={handleInput} required />
+        </div>
+        <div className="form_control">
+          <input type="text" name="website" placeholder="Website" value={input.website} onChange={handleInput} />
+        </div>
+        <div className="form_control">
+          <input type="text" name="GST" placeholder="GST" value={input.GST} onChange={handleInput} />
+        </div>
+
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Registering..." : "Register"}
+        </button>
+
+        {isError && (
+          <p style={{ color: "red" }}>
+            Registration failed: {error?.data?.message}
+          </p>
+        )}
+        {data && (
+          <p style={{ color: "green" }}>
+            Welcome, {data.name || "User"}! Registration successful.
+          </p>
+        )}
+      </form>
+    </div>
   );
 };
 
