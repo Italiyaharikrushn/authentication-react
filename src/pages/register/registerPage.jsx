@@ -2,23 +2,15 @@ import { useState } from "react";
 import { useRegisterMutation } from "../../redux/api/loginApi";
 
 const RegisterPage = () => {
-  const [input, setInput] = useState({
-    name: "",
-    address: "",
-    email: "",
-    phone: "",
-    password: "",
-    website: "",
-    GST: "",
-  });
-
+  const [input, setInput] = useState({ name: "", address: "", email: "", phone: "", password: "", website: "", GST: "", });
   const [register, { isLoading, isError, error, data }] = useRegisterMutation();
 
   const handleInput = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setInput((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
+      // [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -27,22 +19,14 @@ const RegisterPage = () => {
     try {
       const res = await register(input).unwrap();
       console.log("Register Success:", res);
-      // setInput({
-      //   name: "",
-      //   address: "",
-      //   email: "",
-      //   phone: "",
-      //   password: "",
-      //   website: "",
-      //   GST: "",
-      // });
+      setInput({ name: "", address: "", email: "", phone: "", password: "", website: "", GST: "", });
     } catch (err) {
       console.error("Registration failed:", err);
     }
   };
 
   return (
-    <div className="">
+    <div>
       <form onSubmit={handleSubmitEvent}>
         <div className="form_control">
           <input type="text" name="name" placeholder="Name" value={input.name} onChange={handleInput} required />

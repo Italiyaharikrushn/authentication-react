@@ -5,30 +5,23 @@ const LoginPage = () => {
   const [input, setInput] = useState({ email: "", password: "" });
   const [login, { isLoading, isError, error, data }] = useLoginMutation();
 
-  const handleSubmitEvent = (e) => {
-    // const handleSubmitEvent = async (e) => {
-    e.preventDefault();
-    const { email, password } = input;
-    if (email && password) {
-      try {
-        // const res = await login({ email, password }).unwrap();
-        const res = login({ email, password }).unwrap();
-        console.log("Login Success:", res);
-        setInput({ email: "", password: "" });
-      } catch (err) {
-        console.error("Login failed:", err);
-      }
-    } else {
-      console.log("Please fill all fields");
-    }
-  };
-
   const handleInput = (e) => {
     const { name, value } = e.target;
     setInput((prev) => ({
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleSubmitEvent = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await login(input).unwrap();
+      console.log("Login Success:", res);
+      setInput({ email: "", password: "" });
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
   };
 
   return (
@@ -45,7 +38,7 @@ const LoginPage = () => {
         <button className="btn-submit" disabled={isLoading}>
           {isLoading ? "Logging in..." : "Login"}
         </button>
-        {isError && <p style={{ color: "red" }}>Login failed: {error?.data?.message || "Unknown error"}</p>}
+        {isError && (<p style={{ color: "red" }}>Login failed: {error?.data?.message || "Unknown error"}</p>)}
         {data && (<p style={{ color: "green" }}> Welcome, {data.name || "User"}! </p>)}
       </form>
     </div>
