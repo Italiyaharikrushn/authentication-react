@@ -1,19 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRegisterMutation } from "../../redux/api/loginApi";
 import './registerPage.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const RegisterPage = () => {
   const [input, setInput] = useState({ name: "", address: "", email: "", phone: "", password: "", website: "", GST: "", });
   const [register, { isLoading, isError, error, data }] = useRegisterMutation();
   const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/home');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
-    setInput((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setInput((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmitEvent = async (e) => {
@@ -32,8 +37,9 @@ const RegisterPage = () => {
     <div className="auth">
       <form onSubmit={handleSubmitEvent}>
         <div className="form_control">
-          <h1>Regiaster page</h1>
+          <h1>Register Page</h1>
         </div>
+
         <div className="form_control">
           <input type="text" name="name" placeholder="Name" value={input.name} onChange={handleInput} required />
         </div>
@@ -53,9 +59,11 @@ const RegisterPage = () => {
         <div className="form_control">
           <input type="password" name="password" placeholder="Password" value={input.password} onChange={handleInput} required />
         </div>
+
         <div className="form_control">
           <input type="text" name="website" placeholder="Website" value={input.website} onChange={handleInput} />
         </div>
+
         <div className="form_control">
           <input type="text" name="GST" placeholder="GST" value={input.GST} onChange={handleInput} />
         </div>
@@ -66,16 +74,8 @@ const RegisterPage = () => {
 
         <p>Already have an account? <Link to="/">Sign in</Link></p>
 
-        {isError && (
-          <p style={{ color: "red" }}>
-            Registration failed: {error?.data?.message}
-          </p>
-        )}
-        {data && (
-          <p style={{ color: "green" }}>
-            Registration successful.
-          </p>
-        )}
+        {isError && <p style={{ color: "red" }}>Registration failed: {error?.data?.message}</p>}
+        {data && <p style={{ color: "green" }}>Registration successful.</p>}
       </form>
     </div>
   );
