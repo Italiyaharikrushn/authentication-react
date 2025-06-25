@@ -13,7 +13,6 @@ const RegisterPage = () => {
     setInput((prev) => ({
       ...prev,
       [name]: value,
-      // [name]: type === "checkbox" ? checked : value,
     }));
   };
 
