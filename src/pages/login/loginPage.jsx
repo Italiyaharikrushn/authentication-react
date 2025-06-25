@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useLoginMutation } from '../../redux/api/loginApi';
 import { Link } from 'react-router-dom';
 import './loginPage.css';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [input, setInput] = useState({ email: "", password: "" });
   const [login, { isLoading, isError, error, data }] = useLoginMutation();
+  const navigate = useNavigate();
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -21,6 +23,7 @@ const LoginPage = () => {
       const res = await login(input).unwrap();
       console.log("Login Success:", res);
       setInput({ email: "", password: "" });
+      navigate('/home');
     } catch (err) {
       console.error("Login failed:", err);
     }
