@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './homePage.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/authSlice';
 import Cookies from 'universal-cookie';
@@ -24,8 +25,10 @@ const HomePage = () => {
   }
 
   return (
-    <div>
-      <h1>Home-page</h1>
+    <div className='home_page'>
+      <div className='form_control'>
+        <h1>Home-page</h1>
+      </div>
       <button onClick={hangleLogout}>Logout</button>
     </div>
   )
