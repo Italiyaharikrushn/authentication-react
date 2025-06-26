@@ -22,7 +22,7 @@ const HomePage = () => {
     dispatch(logout());
     navigate('/');
     window.location.reload();
-  }
+  };
 
   return (
     <div className='home_page'>
@@ -31,7 +31,7 @@ const HomePage = () => {
       </div>
       <button onClick={hangleLogout}>Logout</button>
     </div>
-  )
-}
+  );
+};
 
 export default HomePage;
