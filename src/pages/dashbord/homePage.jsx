@@ -17,19 +17,19 @@ const HomePage = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  const hangleLogout = () => {
-    cookies.remove("token", {path: '/'});
+  const handleLogout = () => {
+    cookies.remove("token", { path: '/' });
     dispatch(logout());
     navigate('/');
     window.location.reload();
   };
 
   return (
-    <div className='home_page'>
-      <div className='form_control'>
+    <div className="auth container">
+      <div className="form_control">
         <h1>Home-page</h1>
       </div>
-      <button onClick={hangleLogout}>Logout</button>
+      <button className="btn-submit" onClick={handleLogout}>Logout</button>
     </div>
   );
 };

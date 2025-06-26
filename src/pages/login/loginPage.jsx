@@ -7,6 +7,7 @@ import { setToken } from '../../redux/authSlice';
 
 const LoginPage = () => {
   const [input, setInput] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
   const [login, { isLoading, isError, error, data }] = useLoginMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,11 +37,15 @@ const LoginPage = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
-    <div className='auth'>
+    <div className='container'>
       <form onSubmit={handleSubmitEvent}>
         <div className='form_control'>
-          <h1>Login Page</h1>
+          <h1>Login</h1>
         </div>
 
         <div className="form_control">
@@ -57,7 +62,7 @@ const LoginPage = () => {
 
         <div className="form_control">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             placeholder="Enter Password"
             value={input.password}
@@ -65,6 +70,14 @@ const LoginPage = () => {
             required
             autoComplete="current-password"
           />
+          <span 
+            className="eye-icon" 
+            onClick={togglePasswordVisibility} 
+            role="button"
+            aria-label={showPassword ? "Hide Password" : "Show Password"}
+          >
+            {showPassword ? "Hide" : "Show"}
+          </span>
         </div>
 
         <button className="btn-submit" disabled={isLoading}>
@@ -74,10 +87,7 @@ const LoginPage = () => {
         <p>Don't have an account? <Link to="/register">Sign up</Link></p>
 
         {isError && (
-          <p style={{ color: "red" }}>Login failed: {error?.data?.message || "Unknown error"}</p>
-        )}
-        {data && (
-          <p style={{ color: "green" }}>Welcome, {data.name || "User"}!</p>
+          <p className="error-message">Login failed: {error?.data?.message || "Unknown error"}</p>
         )}
       </form>
     </div>
