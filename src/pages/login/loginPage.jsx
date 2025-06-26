@@ -4,11 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import './loginPage.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setToken } from '../../redux/authSlice';
+import 'font-awesome/css/font-awesome.min.css';
 
 const LoginPage = () => {
   const [input, setInput] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
-  const [login, { isLoading, isError, error, data }] = useLoginMutation();
+  const [login, { isLoading, isError, error }] = useLoginMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
@@ -35,10 +36,6 @@ const LoginPage = () => {
     } catch (err) {
       console.error("Login failed:", err);
     }
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
   };
 
   return (
@@ -72,11 +69,14 @@ const LoginPage = () => {
           />
           <span 
             className="eye-icon" 
-            onClick={togglePasswordVisibility} 
+            onClick={() => setShowPassword(!showPassword)} 
             role="button"
-            aria-label={showPassword ? "Hide Password" : "Show Password"}
           >
-            {showPassword ? "Hide" : "Show"}
+            {showPassword ? (
+                  <i className="fa fa-eye-slash"></i>
+                ) : (
+                  <i className="fa fa-eye"></i>
+                )}
           </span>
         </div>
 

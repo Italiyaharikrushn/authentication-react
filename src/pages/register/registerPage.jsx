@@ -3,11 +3,12 @@ import { useRegisterMutation } from "../../redux/api/loginApi";
 import './registerPage.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import 'font-awesome/css/font-awesome.min.css';
 
 const RegisterPage = () => {
   const [input, setInput] = useState({ name: "", address: "", email: "", phone: "", password: "", website: "", GST: "" });
   const [showPassword, setShowPassword] = useState(false);
-  const [register, { isLoading, isError, error, data }] = useRegisterMutation();
+  const [register, { isLoading, isError, error }] = useRegisterMutation();
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth);
 
@@ -32,10 +33,6 @@ const RegisterPage = () => {
     } catch (err) {
       console.error("Registration failed:", err);
     }
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
   };
 
   return (
@@ -98,13 +95,16 @@ const RegisterPage = () => {
             onChange={handleInput}
             required
           />
-          <span
-            className="eye-icon"
-            onClick={togglePasswordVisibility}
+          <span 
+            className="eye-icon" 
+            onClick={() => setShowPassword(!showPassword)} 
             role="button"
-            aria-label={showPassword ? "Hide Password" : "Show Password"}
           >
-            {showPassword ? "Hide" : "Show"}
+            {showPassword ? (
+                  <i className="fa fa-eye-slash"></i>
+                ) : (
+                  <i className="fa fa-eye"></i>
+                )}
           </span>
         </div>
 
@@ -138,9 +138,6 @@ const RegisterPage = () => {
           <p style={{ color: "red" }}>
             Registration failed: {error?.data?.message || "Unknown error"}
           </p>
-        )}
-        {data && (
-          <p style={{ color: "green" }}>Registration successful!</p>
         )}
       </form>
     </div>
