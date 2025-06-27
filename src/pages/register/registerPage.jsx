@@ -132,7 +132,7 @@ const RegisterPage = () => {
           {isLoading ? "Registering..." : "Register"}
         </button>
 
-        <p>Already have an account? <Link to="/">Sign in</Link></p>
+        <p>Already have an account? <Link to="/login">Sign in</Link></p>
 
         {isError && (
           <p style={{ color: "red" }}>

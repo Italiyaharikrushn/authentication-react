@@ -13,14 +13,14 @@ const HomePage = () => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/');
+      navigate('/login');
     }
   }, [isAuthenticated, navigate]);
 
   const handleLogout = () => {
     cookies.remove("token", { path: '/' });
     dispatch(logout());
-    navigate('/');
+    navigate('/login');
     window.location.reload();
   };
 
