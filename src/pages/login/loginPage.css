@@ -40,16 +40,11 @@ input:focus {
 
 .eye-icon i{
   cursor: pointer;
-  /* color: #007bff; */
   font-size: 18px;
   position: absolute;
-  right: 10px;         /* Replaces left: 250px */
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
-}
-
-.eye-icon:hover {
-  color: #0056b3;
 }
 
 .btn-submit {
@@ -91,8 +86,4 @@ p {
 a {
   color: #007bff;
   text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
 }
