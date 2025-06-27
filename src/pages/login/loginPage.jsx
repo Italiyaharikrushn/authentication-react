@@ -33,6 +33,7 @@ const LoginPage = () => {
       dispatch(setToken(res));
       setInput({ email: "", password: "" });
       navigate('/home');
+      window.location.reload();
     } catch (err) {
       console.error("Login failed:", err);
     }
